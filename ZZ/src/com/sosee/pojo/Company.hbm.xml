@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-6-9 17:04:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sosee.pojo.Company" table="COMPANY">
+        <id name="id" type="java.lang.String">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="companyName" type="java.lang.String">
+            <column name="COMPANYNAME" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="areaId" type="int">
+            <column name="AREAID" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+        <property name="fixedPhone" type="java.lang.String">
+            <column name="FIXEDPHONE" />
+        </property>
+        <property name="mobilePhone" type="java.lang.String">
+            <column name="MOBILEPHONE" />
+        </property>
+        <property name="qq" type="java.lang.String">
+            <column name="QQ" />
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="ADDRESS" />
+        </property>
+        <property name="logo" type="java.lang.String">
+            <column name="LOGO" />
+        </property>
+        <property name="clickNumber" type="int">
+            <column name="CLICKNUMBER" />
+        </property>
+        <property name="rank" type="int">
+            <column name="RANK" />
+        </property>
+        <property name="isStick" type="int">
+            <column name="ISSTICK" />
+        </property>
+        <property name="businessLicense" type="java.lang.String">
+            <column name="BUSINESSLICENSE" />
+        </property>
+        <property name="agentId" type="java.lang.String">
+            <column name="AGENTID" />
+        </property>
+        <property name="star" type="int">
+            <column name="STAR" />
+        </property>
+        <property name="total" type="int">
+            <column name="TOTAL" />
+        </property>
+    </class>
+</hibernate-mapping>

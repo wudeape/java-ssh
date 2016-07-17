@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+ <!-- 定义Action -->
+ <package name="com" namespace="/" extends="struts-default">
+  <!-- 定义有关于买家user的Action -->
+  <action name="userregisteraction" class="com.sosee.action.UserAction" method="register1">
+      <result name="success">/ke_register_2.jsp</result>
+  </action>
+  <action name="userregisteraction2" class="com.sosee.action.UserAction" method="register2">
+      <result name="success">/ke_register_3.jsp</result>   
+  </action>
+  <action name="userregisteraction3" class="com.sosee.action.UserAction" method="saveUser">
+      <result name="success">/ok.jsp</result>     
+  </action>
+  
+   <action name="userGoodsaction" class="com.sosee.action.CompanyGoodsAction" method="query_mu">
+    <result name="success">/keproduct.jsp</result>
+    <result name="error">/keproduct.jsp</result>
+  </action>
+  
+  <action name="userGoodsaction2" class="com.sosee.action.CompanyGoodsAction" method="query_jin">
+     <result name="success">/keproduct.jsp</result>
+    <result name="error">/keproduct.jsp</result>
+ 
+  </action>
+  
+  <action name="userGoodsaction3" class="com.sosee.action.CompanyGoodsAction" method="query_ruan">
+     <result name="success">/keproduct.jsp</result>
+    <result name="error">/keproduct.jsp</result>
+  </action>
+  
+  <action name="userGoodsaction4" class="com.sosee.action.CompanyGoodsAction" method="query_gang">
+     <result name="success">/keproduct.jsp</result>
+    <result name="error">/keproduct.jsp</result>
+  </action>
+  
+  <action name="userGoodsaction5" class="com.sosee.action.CompanyGoodsAction" method="query_zhu">
+     <result name="success">/keproduct.jsp</result>
+    <result name="error">/keproduct.jsp</result>
+  
+  </action>
+ <action name="userbuyaction" class="com.sosee.action.OrderAction" method="userbuy">
+     <result name="success">/keproduct.jsp</result>
+   
+  
+  </action>
+  
+  
+  
+  
+  <!-- 定义登陆的Action -->
+  <action name="loginaction" class="com.sosee.action.LoginAction" method="login">
+    <result name="usersuccess">/keindex.jsp</result>
+    <result name="companysuccess">/changindex.jsp</result>
+    <result name="error">/login.jsp</result>
+  </action>
+  
+  
+  
+  
+  
+    <!-- 定义有关于厂家company的Action -->
+   <action name="companyregisteraction" class="com.sosee.action.CompanyAction" method="register1">
+    <result name="success">/chang_register_2.jsp</result>
+  </action>
+  <action name="companyregisteraction2" class="com.sosee.action.CompanyAction" method="register2">
+    <result name="success">/chang_register_3.jsp</result>
+  </action>
+  <action name="companyregisteraction3" class="com.sosee.action.CompanyAction" method="saveCompany">
+    <result name="success">/ok.jsp</result>
+  </action>
+  
+  
+   <!-- 定义有关于商品companygoods的Action -->
+   <action name="companyGoodsaction1" class="com.sosee.action.CompanyGoodsAction" method="query_mu">
+    <result name="success">/product.jsp</result>
+    <result name="error">/product.jsp</result>
+  </action>
+  <action name="companyGoodsaction2" class="com.sosee.action.CompanyGoodsAction" method="query_jin">
+    <result name="success">/product.jsp</result>
+    <result name="error">/product.jsp</result>
+  </action>
+  <action name="companyGoodsaction3" class="com.sosee.action.CompanyGoodsAction" method="query_ruan">
+    <result name="success">/product.jsp</result>
+    <result name="error">/product.jsp</result>
+  </action>
+  <action name="companyGoodsaction4" class="com.sosee.action.CompanyGoodsAction" method="query_gang">
+    <result name="success">/product.jsp</result>
+    <result name="error">/product.jsp</result>
+  </action>
+  <action name="companyGoodsaction5" class="com.sosee.action.CompanyGoodsAction" method="query_zhu">
+    <result name="success">/product.jsp</result>
+    <result name="error">/product.jsp</result>
+  </action>
+  <action name="addcompanyGoodsaction" class="com.sosee.action.CompanyGoodsAction" method="saveCompanyGoods">
+    <result name="success">/chang_service_add.jsp</result>
+  </action>
+  
+  
+  
+  <action name="lookaction" class="com.sosee.action.OrderAction" method="query_name">
+    <result name="success">/keservice.jsp</result>
+    
+  </action>
+  
+ </package>
+</struts>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-6-11 13:21:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sosee.pojo.Order" table="ORDER">
+        <id name="id" type="java.lang.String">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="orderNumber" type="java.lang.String">
+            <column name="ORDERNUMBER" />
+        </property>
+        <property name="total" type="double">
+            <column name="TOTAL" />
+        </property>
+        <property name="oerderTime" type="java.util.Date">
+            <column name="OERDERTIME" />
+        </property>
+        <property name="agentId" type="int">
+            <column name="AGENTID" />
+        </property>
+        <property name="identifyingTime" type="java.util.Date">
+            <column name="IDENTIFYINGTIME" />
+        </property>
+        <property name="state" type="int">
+            <column name="STATE" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"        
+             default-autowire="byName">
+              <!-- 指定注解扫描的基包 -->
+ <!-- <context:component-scan base-package="com.sosee">
+ </context:component-scan> --> 
+<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+           
+<!-- 配置数据源 -->
+ <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean> 
+	
+
+<!-- 创建SessionFactory -->
+<bean id="sessionFactory"
+			class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses"> 
+     <list>
+       <value>com.sosee.pojo.User</value><!--在此处添加持久化类的映射文件*.hbm.xml  -->              
+       <value>com.sosee.pojo.Company</value>
+       <value>com.sosee.pojo.CompanyGoods</value>
+       <value>com.sosee.pojo.Agent</value>
+       <value>com.sosee.pojo.Area</value>
+       <value>com.sosee.pojo.Goods</value>
+       <value>com.sosee.pojo.Nationality</value>
+       <value>com.sosee.pojo.Order</value>
+       <value>com.sosee.pojo.OrderGoods</value>
+      
+     </list>
+   </property>
+   <!-- 定义hibernate sessionFactory属性 -->
+   <property name="hibernateProperties">
+      <props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.jdbc.fetch_size">50</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+			 <!--
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			  -->
+			</props>
+		</property>
+ </bean>
+ <!-- 配置Hibernate的局部事务管理器 -->
+ <bean  id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+ </bean>
+  <!-- 箱数据层注入hibernateTemplate，数据层用@resource 来引入 template-->
+ <bean id="template" 
+       class="org.springframework.orm.hibernate3.HibernateTemplate">
+       <property name="sessionFactory" ref="sessionFactory"/>
+ </bean>
+ 
+
+ <!-- 事务驱动注入 -->
+ <tx:annotation-driven transaction-manager="transactionManager"/>
+
+<!-- 声明TxAdvice -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="create*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="*" read-only="false" propagation="NOT_SUPPORTED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<!-- 使用AspectJ语法定义Pointcut -->
+		<aop:pointcut id="uServiceOperate"
+			expression="execution(* com.sosee.service.*.*(..))" />
+
+		<!-- 织入-->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="uServiceOperate" />
+
+	</aop:config>
+<bean id="user" class="com.sosee.pojo.User" scope="prototype"/>
+<bean id="userDao" class="com.sosee.dao.UserDaoImpl" scope="prototype"/>
+<bean id="userService" class="com.sosee.service.UserServiceImpl" scope="prototype" />
+<bean id="uAction" class="com.sosee.action.UserAction" scope="prototype" />
+
+<bean id="comService" class="com.sosee.service.CompanyServiceImpl" scope="prototype" />
+<bean id="comDao" class="com.sosee.dao.CompanyDaoImpl" scope="prototype" />
+<bean id="com" class="com.sosee.pojo.Company" scope="prototype" />
+<bean id="cAction" class="com.sosee.action.CompanyAction" scope="prototype" />
+
+
+<bean id="comGoods" class="com.sosee.pojo.CompanyGoods" scope="prototype"/>
+<bean id="comGoodsDao" class="com.sosee.dao.CompanyGoodsDaoImpl" scope="prototype"/>
+<bean id="comGoodsService" class="com.sosee.service.CompanyGoodsServiceImpl" scope="prototype" />
+
+<bean id="order" class="com.sosee.pojo.Order" scope="prototype"/>
+<bean id="orderDao" class="com.sosee.dao.OrderDaoImpl" scope="prototype"/>
+<bean id="orderService" class="com.sosee.service.OrderServiceImpl" scope="prototype" />
+
+<bean id="orderGoods" class="com.sosee.pojo.OrderGoods" scope="prototype"/>
+<bean id="orderGoodsDao" class="com.sosee.dao.OrderGoodsDaoImpl" scope="prototype"/>
+<bean id="orderGoodsService" class="com.sosee.service.OrderGoodsServiceImpl" scope="prototype" />
+</beans>
